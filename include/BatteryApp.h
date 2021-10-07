@@ -1,13 +1,18 @@
+#pragma once
 
 #include "pch.h"
-#include "UserInterface.h"
+
+// Forward declare your layers here
+class UserInterface;
+class RobotinoLayer;
 
 class BatteryApp : public Battery::Application {
-
-	std::shared_ptr<UserInterface> ui;
-	Robotino::Robotino robotino;
-
 public:
+
+	// Here you can specify various application layers
+	std::shared_ptr<UserInterface> ui;
+	std::shared_ptr<RobotinoLayer> robotinoLayer;
+
 	BatteryApp();
 
 	bool OnStartup() override;
@@ -15,5 +20,7 @@ public:
 	void OnRender() override;
 	void OnShutdown() override;
 	void OnEvent(Battery::Event* e) override;
+
+	static BatteryApp& Get();
 
 };

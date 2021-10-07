@@ -1,58 +1,44 @@
 #pragma once
 
 #include "pch.h"
+#include "BatteryApp.h"
+#include "Fonts.h"
 
-extern float linearSpeed;
-extern float turnSpeed;
+// Include all your panels
+#include "MyPanel.h"
 
-struct FontContainer : public Battery::FontContainer {
-	ImFont* font1 = ImGui::GetIO().Fonts->AddFontDefault();
-};
-
-class MyPanel : public Battery::ImGuiPanel<> {
-
-	
-
-public:
-	MyPanel() : Battery::ImGuiPanel<>("MyPanel", { 0, 0 }, { 0, 0 }) {
-
-	}
-
-	void OnUpdate() override {
-		size = Battery::GetMainWindow().GetSize();
-	}
-
-	void OnRender() override {
-		ImGui::SliderFloat("Linear Speed", &linearSpeed, 0, 3);
-		ImGui::SliderFloat("Turn Speed", &turnSpeed, 0, 3);
-	}
-};
-
+// This is the main user interface layer based on ImGui: Only one instance of it can exist.
+// It can draw basic ImGui windows and it can contain any number of Battery::ImGuiPanels.
 class UserInterface : public Battery::ImGuiLayer<FontContainer> {
 public:
 
-	std::shared_ptr<MyPanel> panel;
+	// Here you can allocate any number of panels for later use
+	std::shared_ptr<MyPanel> myPanel;
 
-	UserInterface() {}
+	UserInterface() {}	// Do not use this contructor
 
-	void OnImGuiAttach() override {
-		panel = std::make_shared<MyPanel>();
-		PushPanel(panel);
+	void OnImGuiAttach() override {		// Called once on startup
+
+		// Here the panels are initialized and then pushed onto the panel stack
+		myPanel = std::make_shared<MyPanel>();
+		PushPanel(myPanel);
 	}
 
-	void OnImGuiDetach() override {
-
-	}
-
-	void OnImGuiUpdate() override {
-
-	}
-
-	void OnImGuiRender() override {
+	void OnImGuiDetach() override {		// Called once on shutdown
 
 	}
 
-	void OnImGuiEvent(Battery::Event* event) override {
+	void OnImGuiUpdate() override {		// Called every frame before render, only for calculations
+
+	}
+
+	void OnImGuiRender() override {		// Called every frame after update, here ImGui can be rendered
+		auto fonts = GetFontContainer<FontContainer>();		// Here you can access the fonts from Fonts.h
+
+
+	}
+
+	void OnImGuiEvent(Battery::Event* event) override {		// Called when an event arrives which wasn't handled yet by the layer above
 
 	}
 };

@@ -55,7 +55,7 @@ project (projectName)
         optimize "On"
         libdirs { "$(BATTERY_ENGINE_DEPLOY_LINK_DIRS)" }
         links { "$(BATTERY_ENGINE_DEPLOY_LINK_FILES)" }
-        links { "$(ROBOTINOLIB_RELEASE_LINKS)" }
+        links { "$(ROBOTINOLIB_DEPLOY_LINKS)" }
         targetdir (_SCRIPT_DIR .. "/bin/Deploy")
 
     filter {}
