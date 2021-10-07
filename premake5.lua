@@ -29,7 +29,7 @@ project (projectName)
     -- Configuration filters, filters are active up to the next filter statement
     -- Indentation is purely visual
     filter "configurations:Debug"
-        defines { "DEBUG", "_DEBUG", "ALLEGRO_STATICLINK" }
+        defines { "DEBUG", "_DEBUG", "NDEPLOY", "ALLEGRO_STATICLINK" }
         kind "ConsoleApp"
         runtime "Debug"
         symbols "On"
@@ -39,7 +39,7 @@ project (projectName)
         targetdir (_SCRIPT_DIR .. "/bin/Debug")
 
     filter "configurations:Release"
-        defines { "NDEBUG", "ALLEGRO_STATICLINK" }
+        defines { "NDEBUG", "NDEPLOY", "ALLEGRO_STATICLINK" }
         kind "ConsoleApp"
         runtime "Release"
         optimize "On"
